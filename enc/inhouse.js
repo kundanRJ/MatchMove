@@ -330,7 +330,7 @@ function setHeaderText(cardNetwork) {
 	}
 }
 function resendTime(){
-	let timeLeft =5;
+	let timeLeft =05;
 		const countdownElement = document.getElementById('timeleft');
 		const linkElement = document.getElementById('resendOtpBtn');
 	
@@ -339,6 +339,8 @@ function resendTime(){
 	
 		function updateTimer() {
 			timeLeft--;
+			document.getElementById("timer").style.visibility = "visible";
+			document.getElementById("resendOtpBtn").style.visibility = "hidden";
 			//var message = 'Resend OTP in';
 			countdownElement.textContent = timeLeft.innerHTML=' 00:' + timeLeft;
 			if(timeLeft<10)
@@ -349,6 +351,8 @@ function resendTime(){
 			if (timeLeft <= 0) {
 				clearInterval(timerInterval);
 			//	linkElement.style.display = 'inline'; // Display the link
+			document.getElementById("timer").style.visibility = "hidden";
+			       document.getElementById("resendOtpBtn").style.visibility = "visible";
 				linkElement.style.pointerEvents='auto';
 				document.getElementById('resendOtpBtn').disabled=false;
 			//	document.getElementById('resendOtpBtn').style.display='inline';
