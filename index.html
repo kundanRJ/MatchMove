@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta HTTP-EQUIV="Cache-Control" CONTENT="no cache">
+		<meta HTTP-EQUIV="Pragma" CONTENT="no cache">
+		<meta HTTP-EQUIV="Expires" CONTENT="0">
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<meta name="description" content="MasterCard SecureCode">
+		<link rel="icon" href="images/MM_header.png" type="image/png" />
+		<title>Matchmove</title>
+		<script language="javascript" type="text/javascript" src="enc/jquery.min.js"></script>
+		<script language="javascript" type="text/javascript" src="enc/jquery-ui.min.js"></script>
+		<script language="javascript" type="text/javascript" src="enc/inhouse.js"></script>
+		<link rel="stylesheet" type="text/css" href="enc/inhouse.css">
+<script language="JavaScript">  
+//Disable right click script 
+//document.addEventListener('contextmenu', event => event.preventDefault());
+//Added by Mamta For input box validation and f12 ,f5, rightclick 
+
+$(document).ready(function ()
+{
+
+        $("#inhouse").submit(function (e) {
+            $(".button").attr("disabled", true);
+           // alert("disabled");
+            return true;
+
+        });
+});
+
+function check_input(value,id)
+{
+
+if(id=='otpVal')
+{
+      if(value.length==6)
+     {
+     // alert('true');
+      document.getElementById("IDCT_BUTID").disabled=false;
+      document.getElementById("IDCT_BUTID").style.opacity='100%' ;
+	}
+}
+}
+
+document.onkeydown=function(event){
+event=(event || window.event);
+if(event.keyCode == 123){
+//alert('disble F12');
+return false;
+}
+}
+
+function clickIE() 
+{
+  //alert('inside clickIE');
+if (document.all)
+ {
+ (message);
+ return false;
+ }
+}
+function clickNS(e) 
+{
+   //alert(' inside clickNS');
+if (document.layers||(document.getElementById&&!document.all))
+ {
+if (e.which==2||e.which==3) 
+   {
+    (message);
+	 return false;
+	}
+ }
+}
+if (document.layers) 
+{
+ document.captureEvents(Event.MOUSEDOWN);
+ document.onmousedown=clickNS;
+ }
+else
+{
+
+ document.onmouseup=clickNS;
+ document.oncontextmenu=clickIE;
+ }
+
+document.oncontextmenu=new Function("return false");
+
+
+document.onkeypress = function (event)
+ {
+    event = (event || window.event);
+    return keyFunction(event);
+}
+document.onmousedown = function (event) {
+    event = (event || window.event);
+    return keyFunction(event);
+}
+document.onkeydown = function (event) {
+    event = (event || window.event);
+    return keyFunction(event);
+}
+
+function keyFunction(event){
+    //"F12" key
+    if (event.keyCode == 123) {
+    //alert("Can't press F12");
+        return false;
+    }
+	//cntrl+shift+I
+    if (event.ctrlKey && event.shiftKey && event.keyCode == 73) {
+   // alert("Can't press cntrl+shift+I");
+        return false;
+    }
+   
+    //F5
+    if (event.keyCode == 116) {
+   //  alert("Can't press F5");
+       return false;
+    }
+} 
+ 
+</script>		
+	</head>
+	<body onload="javascript:optionSelect('%%DEF_VAL%%');setHeaderText('%%CARD_NETWORK%%');">
+		<div id="main" class="section section-content">
+			<div class="loader" id="loader" style="display: none;">
+				<svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+					<path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z" transform="rotate(136.283 25 25)">
+						<animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"></animateTransform>
+					</path>
+				</svg>
+			</div>
+			<div class="content-loaded">
+				<div id="top" class="content clearfix">
+					<img src="%%CLIENT_LOGO%%" class="logoLeft" alt="" /> 
+					<img src="%%BANK_LOGO%%" class="logoRight" alt="" />				
+				</div>
+
+				<div id="content_eng" class="content">
+					<div class="sectionInner">
+						<p>Choose your mode of authenticating a transaction</p>
+						<div id='tabMenus' class="middle">
+						</div>
+						<br />
+						<h3 id="headerText"></h3>
+						<h3 id="setIpinHead" style="display:none;">Set <i>iPin</i></h3>
+						<h3 id="setEnterIpinHead" style="display:none;">Enter your <i>iPin</i></h3>
+						<p id="setIpinP" style="margin-bottom: 15px;display:none;">
+							Enter the details below for the card number ending
+							in %%PAN%%, to set your iPin.
+						</p>
+						<p id="setCreatedIPIN" style="margin-bottom: 15px;display:none;">
+							Enter the iPin you have created linked to the card number:
+							%%PAN%%
+						</p>
+						<p id="setStaticPIN" style="margin-bottom: 15px;display:none;">
+							Enter the last four digits of your mobile number and date of birth as static pin below
+						</p>
+						<p id='otpMsglbl' style="margin-bottom: 15px;display:none;">
+					Your One Time Password (OTP) has been sent.The OTP is valid for next 3 minutes. In case you didn't receive the OTP click on "RESEND OTP" below.
+						</p>
+						<div id="resendLink" style="display:none;" class="clearfix">
+							<input id="resendOtp" type="hidden" value="%%RESPONSEURL%%?resend=true" />
+							<div class="link link-standalone">
+								<span id="countdown" ></span>
+                                    <div id="timer"><span style="font-size: small;text-transform: inherit;font-weight: bold;">Resend OTP in </span> <span id="timeleft" style="color: green;font-weight: bold;"></span></div>
+								<a id="resendOtpBtn" class="link" style="cursor:pointer;pointer-events:none;"  onclick="hrefcon = false;setResendParam();">Resend OTP</a>
+								<p id="resendMsgDiv">OTP has been resent.</p>
+							</div>
+						</div>
+						<div class="details-transaction">
+							<ul id='ul_Contect' style="display:none;">
+								<li class="item-transaction">
+									<label>Merchant</label>
+									<p>%%MERCHANTNAME%%</p>
+								</li>
+								<li class="item-transaction">
+									<label>Amount</label>
+									<p>%%AMOUNT%%</p>
+								</li>
+								<li class="item-transaction">
+									<label>Date</label>
+									<p>
+										<script language="javascript">document.writeln(date);</script>
+									</p>
+								</li>
+								<li class="item-transaction">
+									<label>Card Number</label>
+									<p>%%PAN%%</p>
+								</li>
+								<br />
+								<li id="spinMob" class="item-transaction item-fullwidth">
+									<label for="mobNo">Enter Last four Digits of Mobile Number</label>
+									<input name="mobNo" id="mobNo" type="password"
+									placeholder="Last four digits of Mobile"
+									maxlength="4" minlength="4" />
+								</li>
+								<li id="spinDob" class="item-transaction" style="width: 100%;display:none;">
+									<label for="dob">Enter four digits of DOB(DDMM)</label>
+									<input name="dob" id="dob" type="password"
+									placeholder="Four digits of Birthday(DDMM)"
+									maxlength="4" minlength="4" />
+								</li>
+								<li id="otpData" class="item-transaction">
+									<label for="otpVal">Enter OTP</label>
+									<input id="otpVal" name="otpVal" type="password"
+									placeholder="Enter OTP" maxlength="6" minlength="6" onkeyup="check_input(this.value,this.id)"/>
+									
+								</li>
+								<li id="ipinData" class="item-transaction">
+									<label for="iPinVal">Enter IPIN</label>
+									<input id="iPinVal" name="iPinVal" type="password"
+									placeholder="Enter IPIN" minlength="6" maxlength="6" />
+									
+								</li>
+							</ul>
+							<!-- Set IPIN Flow -->
+							<ul id="setIpinList" style="display:none;">
+								<li class="item-transaction item-fullwidth">
+									<label for="iPin">Card Number</label>
+									<input id="cardNo" name="iPin" type="tel"
+									placeholder="Enter Card number" maxlength="16" minlength="16" />
+								</li>
+								<!-- <li class="item-transaction item-fullwidth">
+									<label for="iPin">Date Issued</label>
+									<select id="month" name="month">
+										<option value="0" selected>Select</option>
+										<option value="01">Jan</option>
+										<option value="02">Feb</option>
+										<option value="03">Mar</option>
+										<option value="04">Apr</option>
+										<option value="05">May</option>
+										<option value="06">Jun</option>
+										<option value="07">Jul</option>
+										<option value="08">Aug</option>
+										<option value="09">Sep</option>
+										<option value="10">Oct</option>
+										<option value="11">Nov</option>
+										<option value="12">Dec</option>
+									</select>
+									<select id="year" name="year">
+										<option value="0">Select</option>
+									</select>
+								</li> -->
+								<li class="item-transaction item-fullwidth">
+									<label for="iPin">Enter IPIN</label>
+									<input name="iPin" id="ipin1" type="password"
+									placeholder="Enter IPIN" maxlength="6" minlength="6">
+								</li>
+								<li class="item-transaction">
+									<label for="iPin">Confirm IPIN</label>
+									<input name="iPin" id="ipin2" type="password"
+									placeholder="Confirm IPIN" maxlength="6" minlength="6">
+								</li>
+							</ul>
+						</div>
+
+						<form id="inhouse" method="post" action="%%RESPONSEURL%%">
+							<div id="actions">
+								<div class="link-holder clearfix">
+									<div class="link">
+										<a href="https://vcard-assets.s3.amazonaws.com/global/faq/3Dsecure/index.html" target="_blank">Help</a>
+									</div>
+									<div class="link">
+										<a href="%%RESPONSEURL%%?cancel=true&inhouseVal=MM_INHOUSE"
+										onclick="cancelconform = false">Cancel</a>
+									</div>
+								</div>
+								<input type="hidden" id="spin" name="spin" value="" />
+								<input type="hidden" id="otp" name="otp" value="" />
+								<input type="hidden" id="ipin" name="ipin" value="" />
+								<input type="hidden" id="VALTYPE" name="VALTYPE" value="" />
+								<input type="hidden" id="inhouseVal" name="inhouseVal" value="%%MM_INHOUSE%%" />
+								<input type="hidden" id="paramVal" name="paramVal" value="%%paramValues%%" />
+								<input id='IDCT_BUTID'
+								class="button" name='IDCT_BUT_NAME' type="submit" value='Submit'
+								style='cursor:hand;opacity:50%'
+								onclick="needToConfirm = false;return formvalid();this.disabled = true;"
+								/>
+							</div>
+						</form>
+					</div>
+
+					<!-- Language Bar section to list down the supported languages.
+					If not a multilingual page, then just delete the section below -->
+					<!-- <div id="languageBar" class="content">
+					<a id="lang_eng" class="lang-label lang-en lang-active"
+					href="#" onclick="languageChange('EN')">EN</a>
+					<a id="lang_vn" class="lang-label lang-vn"
+					href="index-vn.html" onclick="languageChange('VN')">VN</a>
+					<a id="lang_id" class="lang-label lang-id"
+					href="index-id.html" onclick="languageChange('ID')">ID</a>
+					</div> -->
+				</div>
+			</div>
+			<input type="hidden" id="defaultMethod" name="defaultMethod" value="%%DEF_VAL%%" />
+			<input type="hidden" id="secMethod" name="secMethod" value="%%SEC_VAL%%" />
+			<input type="hidden" id="methodsValue" name="methodsValue" value="%%METHOD_VALUE%%" />
+			<input type="hidden" id="resendValue" name="resendValue" value="%%RESEND%%" />
+			<input type="hidden" id="secPage"  value="firPage" />
+			<div id="footer" class="content">
+				<img src="images/poweredbyM.png" class="logoLeft" alt="" /> 
+				<img src="%%NETWORK_LOGO%%" class="logoRight" alt="" />
+			</div>
+		</div>
+	</body>
+</html>
