@@ -330,7 +330,7 @@ function setHeaderText(cardNetwork) {
 	}
 }
 function resendTime(){
-	let timeLeft =60;
+	let timeLeft =5;
 		const countdownElement = document.getElementById('timeleft');
 		const linkElement = document.getElementById('resendOtpBtn');
 	
